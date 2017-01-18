@@ -56,27 +56,19 @@ $app->notFound(function () use ($app) {
 });
 
 $app->get("/logout", function () use ($app) {
-  $app->deleteCookie('securityContext');
-  $app->redirect("/");
+    $app->deleteCookie('securityContext');
+    $app->redirect("/");
 });
 
 
 $app->get("/", function () use ($app) {
 
     $configs = $app->container->get('configs');
-    $layout = Yaml::parse(file_get_contents("../configs/layout.yml"));
-    $portfolio = Yaml::parse(file_get_contents("../configs/portfolio.yml"));
-    $pocketData = new PocketData($configs['pocket']['consumer_key'], $configs['pocket']['access_token']);
-    $comics = Yaml::parse(file_get_contents("../configs/comics.yml"));
 
     $templateVars = array(
         "configs" => $configs,
         "section" => "index",
-        "layout" => $layout,
-        "portfolio" => $portfolio,
-        "pocket_articles" => $pocketData->getArticles(10, 3600),
-        "lastRequestUri" => isset($_SESSION['lastRequestUri']) ? $_SESSION['lastRequestUri'] : null,
-        "comics" => $comics
+        "lastRequestUri" => isset($_SESSION['lastRequestUri']) ? $_SESSION['lastRequestUri'] : null
     );
 
     // clear last request url

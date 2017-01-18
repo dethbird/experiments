@@ -4,32 +4,7 @@
 {% endblock %}
 {% block content %}
     {{ parent() }}
-    <img src="img/intro_hydrant.jpg" alt="" id="intro_hydrant"/>
-	<img src="img/intro_shoes.png" alt="" id="intro_shoes" />
-	<img src="img/intro_signature.png" alt="" id="intro_signature" class="parallax" data-parallax-id="intro_signature_parallax"/>
-	<img src="img/intro_tagline.png" alt="" id="intro_tagline" />
-	<button class="btn btn-success" id="great_button">Great!</button>
-	<img src="img/portfolio_background.jpg" alt="" id="portfolio_background" />
-	<img src="img/portfolio_title_parallax02.png" alt="" id="portfolio_title_parallax02" class="parallax" data-parallax-id="intro_signature_parallax"/>
-	<img src="img/portfolio_title_parallax01.png" alt="" id="portfolio_title_parallax01" class="parallax" data-parallax-id="intro_signature_parallax"/>
-	<img src="img/portfolio_title.png" alt="" id="portfolio_title" />
-	<img src="img/portfolio_neonsign01.png" alt="" id="portfolio_neonsign01" class="flicker"/>
-	<img src="img/portfolio_neonsign02.png" alt="" id="portfolio_neonsign02" class="flicker"/>
-	<img src="img/whatido_background.jpg" alt="" id="whatido_background" />
-	<img src="img/whatido_title_parallax02.png" alt="" id="whatido_title_parallax02" class="parallax" data-parallax-id="whatido_parallax"/>
-	<img src="img/whatido_title_parallax01.png" alt="" id="whatido_title_parallax01" class="parallax" data-parallax-id="whatido_parallax"/>
-	<img src="img/whatido_title.png" alt="" id="whatido_title" />
-	<img src="img/info_background.jpg" alt="" id="info_background" />
-	<img src="img/info_title_parallax02.png" alt="" id="info_title_parallax02" class="parallax" data-parallax-id="info_parallax"/>
-	<img src="img/info_title_parallax01.png" alt="" id="info_title_parallax01" class="parallax" data-parallax-id="info_parallax"/>
-	<img src="img/info_title.png" alt="" id="info_title" />
-    <div id="whatido_copy">
-        {% include 'partials/index/whatido_copy.twig.html' with {'id': 'whatido_copy_markup'} %}
-    </div>
-    <div id="info_copy">
-        {% include 'partials/index/info_copy.twig.html' with {'pocket_articles': pocket_articles, 'id': 'info_copy_markup'} %}
-    </div>
-    <div id="portfolio"></div>
+    eat shit
 {% endblock %}
 
 
@@ -37,9 +12,5 @@
     <!-- js includes -->
     <script type="text/javascript">
         var lastRequestUri = '{{lastRequestUri}}';
-        var layout = {{layout|json_encode|raw}};
-        var portfolio = {{portfolio|json_encode|raw}};
     </script>
-    <script type="text/javascript" src="/js/pages/index.js"></script>
-    <script type="text/javascript" src="/js/pages/portfolio.js"></script>
 {% endblock %}
