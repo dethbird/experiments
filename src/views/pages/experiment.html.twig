@@ -5,6 +5,9 @@
 {% block content %}
     {{ parent() }}
     <h1 class="uk-heading-line"><span>{{ experiment.name }}</span></h1>
+    {% if experiment.view_script %}
+        {% include ['partials/experiments/', experiment.view_script, '.html.twig']|join with { experiment: experiment } %}
+    {% endif %}
 {% endblock %}
 
 

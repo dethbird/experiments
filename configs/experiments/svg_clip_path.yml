@@ -1,4 +1,5 @@
 name: SVG Clip Path
 path: svg_clip_path
+view_script: svg_clip_path
 description: |
-    Use an SVG to clip a .gif. Also mess with CSS blend modes.
+    Use an SVG to clip a .gif.
