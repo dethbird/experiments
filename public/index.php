@@ -27,6 +27,8 @@ use Cocur\Slugify\Slugify;
 use Symfony\Component\Yaml\Yaml;
 use Guzzle\Http\Client;
 
+
+
 // Load configs and add to the app container
 $configs = Yaml::parse(file_get_contents("../configs/configs.yml"));
 
@@ -49,6 +51,10 @@ $view->parserExtensions = array(
 );
 $app->container->set('configs', $configs);
 
+function fetchExperimentListing() {
+    
+
+}
 
 $app->notFound(function () use ($app) {
     $_SESSION['lastRequestUri'] = $_SERVER['REQUEST_URI'];
