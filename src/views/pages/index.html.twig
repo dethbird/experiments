@@ -5,11 +5,25 @@
 {% block content %}
     {{ parent() }}
     <h1 class="uk-heading-line"><span>Experiments</span></h1>
-    <div uk-grid>
-        <div class="uk-width-1-3">
-            <div class="uk-card uk-card-default uk-card-body">1-3</div>
+    {% for experiment in experiments %}
+        <div uk-grid>
+            <div class="uk-width-1-4">
+                <div class="uk-card uk-card-default">
+                    <div class="uk-card-header">
+                        <div class="uk-card-title">
+                            <h3>{{ experiment.name }}</h3>
+                        </div>
+                    </div>
+                    <div class="uk-card-body">
+                        <p>{{ experiment.description|markdown }}</p>
+                    </div>
+                    <div class="uk-card-footer">
+                        <a class="uk-button uk-button-default uk-button-primary uk-align-center" href="/experiment/{{ experiment.path }}">View</a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    {% endfor %}
 {% endblock %}
 
 

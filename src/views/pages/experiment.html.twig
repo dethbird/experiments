@@ -1,0 +1,16 @@
+{% extends 'layout.html.twig' %}
+{% block head %}
+    {{parent()}}
+{% endblock %}
+{% block content %}
+    {{ parent() }}
+    <h1 class="uk-heading-line"><span>{{ experiment.name }}</span></h1>
+{% endblock %}
+
+
+{% block includes %}
+    <!-- js includes -->
+    <script type="text/javascript">
+        var lastRequestUri = '{{lastRequestUri}}';
+    </script>
+{% endblock %}

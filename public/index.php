@@ -21,13 +21,14 @@ require_once APPLICATION_PATH . 'src/library/View/Extension/TemplateHelpers.php'
 require_once APPLICATION_PATH . 'src/library/ExternalData/InstagramData.php';
 require_once APPLICATION_PATH . 'src/library/ExternalData/PocketData.php';
 
+use MeadSteve\Console\Shells\BasicShell;
 use Aptoma\Twig\Extension\MarkdownExtension;
 use Aptoma\Twig\Extension\MarkdownEngine;
 use Cocur\Slugify\Slugify;
 use Symfony\Component\Yaml\Yaml;
 use Guzzle\Http\Client;
 
-
+$shell = new BasicShell();
 
 // Load configs and add to the app container
 $configs = Yaml::parse(file_get_contents("../configs/configs.yml"));
@@ -52,8 +53,31 @@ $view->parserExtensions = array(
 $app->container->set('configs', $configs);
 
 function fetchExperimentListing() {
-    
+    global $shell;
 
+    $experimentConfigFiles = $shell->executeCommand('find', array(
+        APPLICATION_PATH . "configs/experiments",
+        "-name",
+        "*.yml"
+    ));
+
+    $listing = [];
+    foreach ($experimentConfigFiles as $file) {
+        $listing[] = Yaml::parse(file_get_contents($file));
+    }
+
+    return $listing;
+}
+
+function fetchExperimentByPath($path) {
+    $experiments = fetchExperimentListing();
+    $experiment = null;
+    foreach($experiments as $e) {
+        if ($e['path'] == $path) {
+            $experiment = $e;
+        }
+    }
+    return $experiment;
 }
 
 $app->notFound(function () use ($app) {
@@ -70,9 +94,12 @@ $app->get("/logout", function () use ($app) {
 $app->get("/", function () use ($app) {
 
     $configs = $app->container->get('configs');
+    $experiments = fetchExperimentListing();
+
 
     $templateVars = array(
         "configs" => $configs,
+        "experiments" => $experiments,
         "section" => "index",
         "lastRequestUri" => isset($_SESSION['lastRequestUri']) ? $_SESSION['lastRequestUri'] : null
     );
@@ -90,14 +117,21 @@ $app->get("/", function () use ($app) {
 });
 
 
-$app->get("/resume", function () use ($app) {
+$app->get("/experiment/:path", function ($path) use ($app) {
 
     $configs = $app->container->get('configs');
-    $resume = Yaml::parse(file_get_contents("../configs/resume.yml"));
+    $experiment = fetchExperimentByPath($path);
+
+    $templateVars = array(
+        "configs" => $configs,
+        "experiment" => $experiment,
+        "section" => "experiment",
+        "lastRequestUri" => isset($_SESSION['lastRequestUri']) ? $_SESSION['lastRequestUri'] : null
+    );
 
     $app->render(
-        'pages/resume.html.twig',
-        $resume,
+        'pages/experiment.html.twig',
+        $templateVars,
         200
     );
 });
